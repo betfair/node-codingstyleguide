@@ -4,9 +4,9 @@ This is a guide for writing consistent and aesthetically pleasing node.js code.
 It is inspired by [Felix Geisendörfer](https://github.com/felixge/node-style-guide) with some modifications for company practices.
 
 
-## 2 Spaces for indention
+## 4 Spaces for indentation
 
-Use 2 spaces for indenting your code and swear an oath to never mix tabs and
+Use 4 spaces for indenting your code and swear an oath to never mix tabs and
 spaces - a special kind of hell is awaiting you otherwise.
 
 ## Newlines
