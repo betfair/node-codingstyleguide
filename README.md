@@ -4,9 +4,9 @@ This is a guide for writing consistent and aesthetically pleasing node.js code.
 It is inspired by [Felix Geisendörfer](https://github.com/felixge/node-style-guide) with some modifications for company practices.
 
 
-## 2 Spaces for indention
+## 4 Spaces for indentation
 
-Use 2 spaces for indenting your code and swear an oath to never mix tabs and
+Use 4 spaces for indenting your code and swear an oath to never mix tabs and
 spaces - a special kind of hell is awaiting you otherwise.
 
 ## Newlines
@@ -455,3 +455,36 @@ Feel free to use getters that are free from [side effects][sideeffect], like
 providing a length property for a collection class.
 
 [sideeffect]: http://en.wikipedia.org/wiki/Side_effect_(computer_science)
+
+## Use `use strict`
+
+
+Use `use strict`. It helps out in a couple ways:
+
++ it catches some common coding bloopers by throwing exceptions;
++ it prevents relatively "unsafe" action (such as gaining access to the global object);
++ it disabled features that are confusing or poorly thought out;
+
+More thorough explanation [here][strictmode].
+
+
+[strictmode]: http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/
+
+## Always use the Radix
+
+Everytime `parseInt` is used, one needs to make sure to provide the _radix_ to
+avoid [unexpected results][parseint].
+
+*Right:*
+
+```js
+parseInt("0x8", 10); // 0
+```
+
+*Wrong:*
+
+```js
+parseInt("0x8"); // 8
+```
+
+[parseint]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseInt
