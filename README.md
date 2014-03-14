@@ -469,3 +469,22 @@ More thorough explanation [here][strictmode].
 
 
 [strictmode]: http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/
+
+## Always use the Radix
+
+Everytime `parseInt` is used, one needs to make sure to provide the _radix_ to
+avoid [unexpected results][parseint].
+
+*Right:*
+
+```js
+parseInt("0x8", 10); // 0
+```
+
+*Wrong:*
+
+```js
+parseInt("0x8"); // 8
+```
+
+[parseint]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseInt
