@@ -455,3 +455,17 @@ Feel free to use getters that are free from [side effects][sideeffect], like
 providing a length property for a collection class.
 
 [sideeffect]: http://en.wikipedia.org/wiki/Side_effect_(computer_science)
+
+## Use `use strict`
+
+
+Use `use strict`. It helps out in a couple ways:
+
++ it catches some common coding bloopers by throwing exceptions;
++ it prevents relatively "unsafe" action (such as gaining access to the global object);
++ it disabled features that are confusing or poorly thought out;
+
+More thorough explanation [here][strictmode].
+
+
+[strictmode]: http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/
