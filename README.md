@@ -488,3 +488,56 @@ parseInt("0x8"); // 8
 ```
 
 [parseint]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseInt
+
+## Naming
+
+All variable names should be as specific as possible.
+Meaningless names should be avoided. Names such as `foo`, `bar`, and `temp`, despite being
+part of the developer’s toolbox, don’t give any meaning to variables. There’s no way
+for another developer to understand what the variable is being used for without understanding
+all of the context.
+
+*Right:*
+
+```js
+var count = 2;
+var myName = 'Betfair';
+var valid = true;
+```
+
+*Wrong:*
+
+```js
+// Easily confused with functions
+var getCount = 10;
+var isValid = true;
+```
+
+*Right:*
+
+```js
+function getName() {
+  return myName;
+}
+```
+
+*Wrong:*
+
+```js
+// Easily confused with variable
+function theName() {
+   return myName;
+}
+```
+
+*Wrong:*
+
+```js
+// Non sense
+var thisIsMyRandomName = 10;
+var dx = null;
+var x = 'Betfair'; 
+```
+
+
+
