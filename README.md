@@ -30,11 +30,9 @@ cheap syntactic pleasures.
 [the opposition]: http://blog.izs.me/post/2353458699/an-open-letter-to-javascript-leaders-regarding
 [hnsemicolons]: http://news.ycombinator.com/item?id=1547647
 
-## 80 characters per line
+## 120 characters per line
 
-Limit your lines to 80 characters. Yes, screens have gotten much bigger over the
-last few years, but your brain has not. Use the additional room for split screen,
-your editor supports that, right?
+Limit your lines to 120 characters. Yes, screens have gotten much bigger over the last few years, but your brain has not. This allows you to use the spare room for split screen awesomeness.
 
 ## Use single quotes
 
@@ -398,49 +396,156 @@ setTimeout(function() {
 }, 1000);
 ```
 
-## Use slashes for comments
 
-Use slashes for both single line and multi line comments. Try to write
-comments that explain higher level mechanisms or clarify difficult
-segments of your code. Don't use comments to restate trivial things.
 
-*Right:*
+## Comments
 
-```js
-// 'ID_SOMETHING=VALUE' -> ['ID_SOMETHING=VALUE'', 'SOMETHING', 'VALUE']
-var matches = item.match(/ID_([^\n]+)=([^\n]+)/));
+Use JSDoc
 
-// This function has a nasty side effect where a failure to increment a
-// redis counter used for statistics will cause an exception. This needs
-// to be fixed in a later iteration.
-function loadUser(id, cb) {
+We follow the C++ style for comments in spirit.
+
+All files, classes, methods and properties should be documented with JSDoc comments with the appropriate tags and types. Textual descriptions for properties, methods, method parameters and method return values should be included unless obvious from the property, method, or parameter name.
+
+Inline comments should be of the // variety.
+
+Complete sentences are recommended but not required. Complete sentences should use appropriate capitalization and punctuation.
+
+### Comment Syntax
+
+The JSDoc syntax is based on JavaDoc. Many tools extract metadata from JSDoc comments to perform code validation and optimizations. These comments must be well-formed.
+```
+/**
+ * A JSDoc comment should begin with a slash and 2 asterisks.
+ * Inline tags should be enclosed in braces like {@code this}.
+ * @desc Block tags should always start on their own line.
+ */
+```
+
+### JSDoc Indentation
+
+If you have to line break a block tag, you should treat this as breaking a code statement and indent it four spaces.
+```
+/**
+ * Illustrates line wrapping for long param/return descriptions.
+ * @param {string} foo This is a param with a description too long to fit in
+ *     one line.
+ * @return {number} This returns something that has a description too long to
+ *     fit in one line.
+ */
+project.MyClass.prototype.method = function(foo) {
+  return 5;
+};
+```
+You should not indent the @fileoverview command. You do not have to indent the @desc command.
+
+Even though it is not preferred, it is also acceptable to line up the description.
+```
+/**
+ * This is NOT the preferred indentation method.
+ * @param {string} foo This is a param with a description too long to fit in
+ *                     one line.
+ * @return {number} This returns something that has a description too long to
+ *                  fit in one line.
+ */
+project.MyClass.prototype.method = function(foo) {
+  return 5;
+};
+```
+
+### HTML in JSDoc
+
+Like JavaDoc, JSDoc supports many HTML tags, like 
+```
+<code>, <pre>, <tt>, <strong>, <ul>, <ol>, <li>, <a>
+```
+, and others.
+
+This means that plaintext formatting is not respected. So, don't rely on whitespace to format JSDoc:
+```
+/**
+ * Computes weight based on three factors:
+ *   items sent
+ *   items received
+ *   last timestamp
+ */
+```
+
+It'll come out like this:
+
+Computes weight based on three factors: items sent items received last timestamp
+
+Instead, do this:
+```
+/**
+ * Computes weight based on three factors:
+ * <ul>
+ * <li>items sent
+ * <li>items received
+ * <li>last timestamp
+ * </ul>
+ */
+```
+The JavaDoc style guide is a useful resource on how to write well-formed doc comments.
+
+### Top/File-Level Comments
+
+A copyright notice and author information are optional. File overviews are generally recommended whenever a file consists of more than a single class definition. The top level comment is designed to orient readers unfamiliar with the code to what is in this file. If present, it should provide a description of the file's contents and any dependencies or compatibility information. As an example:
+```
+/**
+ * @fileoverview Description of file, its uses and information
+ * about its dependencies.
+ */
+```
+
+### Class Comments
+
+Classes must be documented with a description and a type tag that identifies the constructor.
+```
+/**
+ * Class making something fun and easy.
+ * @param {string} arg1 An argument that makes this more interesting.
+ * @param {Array.<number>} arg2 List of numbers to be processed.
+ * @constructor
+ * @extends {goog.Disposable}
+ */
+project.MyClass = function(arg1, arg2) {
   // ...
-}
+};
+goog.inherits(project.MyClass, goog.Disposable);
+```
 
-var isSessionValid = (session.expires < Date.now());
-if (isSessionValid) {
+### Method and Function Comments
+
+Parameter and return types should be documented. The method description may be omitted if it is obvious from the parameter or return type descriptions. Method descriptions should start with a sentence written in the third person declarative voice.
+```
+/**
+ * Operates on an instance of MyClass and returns something.
+ * @param {project.MyClass} obj Instance of MyClass which leads to a long
+ *     comment that needs to be wrapped to two lines.
+ * @return {boolean} Whether something occurred.
+ */
+function PR_someMethod(obj) {
   // ...
 }
 ```
 
-*Wrong:*
-
-```js
-// Execute a regex
-var matches = item.match(/ID_([^\n]+)=([^\n]+)/));
-
-// Usage: loadUser(5, function() { ... })
-function loadUser(id, cb) {
-  // ...
-}
-
-// Check if the session is valid
-var isSessionValid = (session.expires < Date.now());
-// If the session is valid
-if (isSessionValid) {
-  // ...
+### Property Comments
+```
+/** @constructor */
+project.MyClass = function() {
+  /**
+   * Maximum number of things per pane.
+   * @type {number}
+   */
+  this.someProperty = 4;
 }
 ```
+
+### JSDoc Tag Reference
+
+Head over to [JSDoc 3 Tag Dictionary](http://usejsdoc.org/#JSDoc3_Tag_Dictionary) for more information.
+
+
 
 ## Object.freeze, Object.preventExtensions, Object.seal, with, eval
 
@@ -538,6 +643,3 @@ var thisIsMyRandomName = 10;
 var dx = null;
 var x = 'Betfair'; 
 ```
-
-
-
