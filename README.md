@@ -73,42 +73,34 @@ if (true)
 
 Also, notice the use of whitespace before and after the condition statement.
 
-## Declare one variable per var statement
+## Combine variable declarations
 
-Declare one variable per var statement, it makes it easier to re-order the
-lines. 
-
-Use [Crockford][crockfordconvention] on this, and put those
-declarations at the beginning of the functions.
+Declare one var per function because:
+- JSLint and possibly other linters will complain about multiple var keywords per scope.
+- A single var keyword minifies better than many, for obvious reasons.
+- Combining declarations forces you to declare the variables in one place, in the beginning of the function.
+ 
+For variables that aren’t initialized, they should appear last.
 
 *Right:*
 
 ```js
-var keys   = ['foo', 'bar'];
-var values = [23, 42];
-var object = {};
-var key = keys.pop();
-
-while (items.length) {
-  object[key] = values.pop();
-}
+var keys   = ['foo', 'bar'],
+    values = [23, 42],
+    object = {},
+    key = keys.pop(),
+    index;
 ```
 
 *Wrong:*
 
 ```js
-var keys = ['foo', 'bar'],
-    values = [23, 42],
-    object = {},
-    key;
-
-while (items.length) {
-  key = keys.pop();
-  object[key] = values.pop();
-}
+var keys = ['foo', 'bar'];
+var values = [23, 42];
+var object = {};
+var key = ['foo', 'bar'];
 ```
 
-[crockfordconvention]: http://javascript.crockford.com/code.html
 
 ## Use lowerCamelCase for variables, properties and function names
 
